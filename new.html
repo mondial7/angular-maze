@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	
+  	<title>Maze</title>
+  	<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
+  	<meta name=viewport content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+	<header>
+		<h1><a href="./index.html"><img src="assets/logo.png" alt="Maze"/></a></h1>
+	</header>
+
+	<main ng-app="mazeGenerator" ng-controller="generatorCtrl">
+
+		<h3>WORK IN PROGRESS</h3>
+
+		<div class="maze_settings">
+			
+			<label for="maze_name">Maze name</label>	
+			<input type="text" name="maze_name" ng-model="maze.name" />
+
+		</div>
+
+		<div class="maze_blockselector">
+			
+			<div class="maze_blocktype">
+				<input ng-repeat="name in blockNames track by $index" ng-class="isActive($index)" ng-click="setBlockType($index)" type="button" value="{{ name }}" />
+			</div>
+
+		</div>
+
+		<div id="maze_board">
+
+			<div class="edit_line">
+				<span ng-click="addLine(1)" class="edit_line__plus"></span>
+				<span ng-click="removeLine(1)" class="edit_line__less"></span>
+			</div>
+
+			<div class="maze_board__central_box">
+
+				<div class="edit_line">
+					<span ng-click="addLine(4)" class="edit_line__plus"></span>
+					<span ng-click="removeLine(4)" class="edit_line__less"></span>
+				</div>
+
+
+				<div class="maze_board__content maze_board__content--editor" ng-mousedown="drawMode(true)" ng-mouseup="drawMode(false)">
+					<div class="maze_board__row" ng-repeat="row in maze.matrix track by $index">
+						{{blockRow = $index}}
+						<div ng-repeat="col in row track by $index" class="maze_board__block">
+							{{blockCol = $index}}
+							<div class="path {{ blockNames[maze.matrix[blockRow][blockCol]] }}" ng-mouseover="evalBlockOver(blockRow,blockCol)" ng-click="evalBlock(blockRow,blockCol)"></div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="edit_line">
+					<span ng-click="addLine(2)" class="edit_line__plus"></span>
+					<span ng-click="removeLine(2)" class="edit_line__less"></span>
+				</div>
+			
+			</div>
+
+			<div class="edit_line">
+				<span ng-click="addLine(3)" class="edit_line__plus"></span>
+				<span ng-click="removeLine(3)" class="edit_line__less"></span>
+			</div>
+
+			<h3>{{ maze.name }} ( {{ maze.matrix.length }}x{{ maze.matrix[0].length }} )</h3>
+
+			<p>
+				{{ printJsonMaze() }}
+			</p>
+
+		</div>
+
+	</main>
+
+  	<footer>
+  		<span>Developed by <a href="http://mondspace.com" target="_blank">Marco</a></span>
+  	</footer>
+
+	<script src="./assets/vendor/angular.min.js"></script>
+	<script src="./assets/js/generator.js"></script>
+
+</body>
+</html>

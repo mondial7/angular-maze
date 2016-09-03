@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	
+  	<title>Maze</title>
+  	<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
+  	<meta name=viewport content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+	<header>
+		<a href=""><img src="assets/logo.png" alt="Maze" /></a>
+	</header>
+
+	<main ng-app="maze" ng-controller="mazeCtrl">
+
+		<section id="maze_list" ng-controller="mazeChooser">
+		
+			<div class="maze_list-box">
+				<input ng-repeat="m in mazeList" ng-class="isActive(m.id)" ng-click="loadMaze(m.id);" onclick="this.className+='selected'" type="button" value="{{ m.name }}" />
+			</div>
+		
+		</section>
+
+		<section id="maze_board" class="maze_board__central_box" ng-controller="mazeBoard">
+
+			<br>
+
+			<div class="maze_board__content">
+				<div class="maze_board__row" ng-repeat="row in maze.matrix track by $index">
+					{{blockRow = $index}}
+					<div ng-repeat="blockID in row track by $index" class="maze_board__block">
+						{{blockCol = $index}}
+						<div class="{{ blocks[blockID] }}" ng-mouseover="evalPath(blockID,blockRow,blockCol)"></div>
+					</div>
+				</div>
+			</div>
+
+			<h3>{{ maze.name }}</h3>
+
+		</section>
+
+	</main>
+
+  	<footer>
+  		<p>Developed by <a href="http://mondspace.com" target="_blank">Marco</a> | <a href="./new.html">Draw your own maze</a></p>
+  	</footer>
+
+	<script src="./assets/vendor/angular.min.js"></script>
+	<script src="./assets/js/app.js"></script>
+	<script src="./assets/js/maze__ctrl.js"></script>
+	<script src="./assets/js/maze_chooser__ctrl.js"></script>
+	<script src="./assets/js/maze_board__ctrl.js"></script>
+
+</body>
+</html>
