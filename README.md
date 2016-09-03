@@ -1,5 +1,7 @@
 # Maze
 
+[Play it](http://thatsmy.name/maze/)
+
  * AngularJS
  * HTML/CSS
  * PHP (app' server side still to be developed)
