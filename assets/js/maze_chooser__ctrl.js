@@ -1,16 +1,18 @@
 Maze.controller('mazeChooser',function($scope,$http){
 
-	/*
-	$http.get("./assets/mazelist.json").then(function(response) {
-        $scope.mazeList = angular.fromJson(response);
-    }); */
-
 	// Default maze list
 	$scope.mazeList = [
 		{id:1,name:"Maze 1",matrix:[[1,3,1,1,1,1,1,1,1,1],[1,5,0,0,0,0,0,0,0,1],[1,0,1,0,1,0,1,1,0,1],[1,0,1,2,1,2,1,0,0,1],[1,0,1,0,0,0,1,0,1,1],[1,0,1,0,1,0,1,0,0,1],[1,0,0,0,1,0,1,1,2,1],[1,0,1,0,0,2,0,1,0,4],[1,0,0,2,1,1,0,0,0,1],[1,1,1,1,1,1,1,1,1,1]],goals:5,compass:[0,1]},
 		{id:2,name:"Maze 2",matrix:[[1,3,1,1,1,1,1,1,1,1],[1,5,0,0,0,0,0,0,0,1],[1,0,1,1,0,1,1,1,0,1],[1,0,0,0,0,0,0,1,0,1],[1,0,1,0,1,1,0,1,0,1],[1,0,1,0,0,0,0,1,0,1],[1,0,2,0,1,1,0,1,2,1],[1,0,1,1,1,2,0,0,0,1],[1,0,0,0,0,0,1,1,0,4],[1,1,1,1,1,1,1,1,1,1]],goals:3,compass:[0,1]},
 		{id:3,name:"Maze 3",matrix:[[1,3,1,1,1],[1,5,0,0,1],[4,0,1,0,1],[1,0,0,2,1],[1,1,1,1,1]],goals:1,compass:[0,1]}
 	];
+
+	// Load mazes
+	$http.get("./mazelist.json").then(function(response) {
+		if (response.data !== null) {
+	        $scope.mazeList = angular.fromJson(response.data);
+    	}
+    });
 
 	$scope.loadMaze = function(mazeID){
 		// Select the right maze

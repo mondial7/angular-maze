@@ -1,6 +1,6 @@
 var Generator = angular.module("mazeGenerator", []);
 
-Generator.controller('generatorCtrl',function($scope){
+Generator.controller('generatorCtrl',function($scope, $http){
 
 	$scope.blockNames = ["PATH","WALL","GOAL","START","FINISH"];
 	$scope.blockTypeID = 1;
@@ -61,10 +61,19 @@ Generator.controller('generatorCtrl',function($scope){
 	}
 
 	$scope.save = function(){
+		
+		// @todo
+		// Valdate the maze
+		// ...
+
 		// Set the default first open paths
-		//...
+		//... 
+		
 		// Send data to server
-		//...
+		$http.post('store.php', {maze:$scope.maze}).success(function(response){
+	    	alert(response);
+	    });
+
 	}
 
 	$scope.addLine = function(position){

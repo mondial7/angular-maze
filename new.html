@@ -2,7 +2,7 @@
 <html>
 <head>
   	
-  	<title>Maze</title>
+  	<title>Maze Generator</title>
   	<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
   	<meta name=viewport content="width=device-width, initial-scale=1">
 
@@ -14,8 +14,6 @@
 	</header>
 
 	<main ng-app="mazeGenerator" ng-controller="generatorCtrl">
-
-		<h3>WORK IN PROGRESS</h3>
 
 		<div class="maze_settings">
 			
@@ -71,6 +69,9 @@
 
 			<h3>{{ maze.name }} ( {{ maze.matrix.length }}x{{ maze.matrix[0].length }} )</h3>
 
+			<!-- temp css class -->
+			<p class="maze_blocktype"><input type="button" value="save" ng-click="save()"></p>
+
 			<p>
 				{{ printJsonMaze() }}
 			</p>
@@ -80,7 +81,7 @@
 	</main>
 
   	<footer>
-  		<span>Developed by <a href="http://mondspace.com" target="_blank">Marco</a></span>
+  		<p>Developed by <a href="http://mondspace.com" target="_blank">Marco</a> | <a href="./index.html">Play it!</a></p>
   	</footer>
 
 	<script src="./assets/vendor/angular.min.js"></script>
