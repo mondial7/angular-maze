@@ -6,6 +6,33 @@
   	<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
   	<meta name=viewport content="width=device-width, initial-scale=1">
 
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+				https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyAlfXgCVazpjfoWvjZHeLSS8eVXtGvpikU",
+				authDomain: "the-maze-a86a4.firebaseapp.com",
+				databaseURL: "https://the-maze-a86a4.firebaseio.com",
+				projectId: "the-maze-a86a4",
+				storageBucket: "the-maze-a86a4.appspot.com",
+				messagingSenderId: "309940934979",
+				appId: "1:309940934979:web:90b1a67977c762fd4477f6",
+				measurementId: "G-Z7TCYCQEFX"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+			// Initialize Cloud Firestore through Firebase
+			const db = firebase.firestore();
+		</script>
+
 </head>
 <body>
 
