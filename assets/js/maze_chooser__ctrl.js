@@ -17,7 +17,7 @@ Maze.controller('mazeChooser',function($scope,$http){
 		const mazeList = [];
 		querySnapshot.forEach(function(doc){
 			const maze = {
-				id: parseInt(doc.id),
+				id: doc.id,
 				...doc.data(),
 				// parse matrix - stored as string in Firestore
 				matrix: angular.fromJson(doc.data().matrix),

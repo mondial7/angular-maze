@@ -1,19 +1,21 @@
 var Generator = angular.module("mazeGenerator", []);
 
-Generator.controller('generatorCtrl',function($scope, $http){
+Generator.controller('generatorCtrl', function($scope, $http){
 
 	$scope.blockNames = ["PATH","WALL","GOAL","START","FINISH"];
 	$scope.blockTypeID = 1;
 
 	$scope.maze = {
-		name: "",
-		matrix:[[0,0,0,0,0],
-				[0,0,0,0,0],
-				[0,0,0,0,0],
-				[0,0,0,0,0],
-				[0,0,0,0,0]],
-		goals:0,
-		compass:[]
+		name: `maze${Date.now()}`,
+		matrix: [
+			[0,0,0,0,0],
+			[0,0,0,0,0],
+			[0,0,0,0,0],
+			[0,0,0,0,0],
+			[0,0,0,0,0],
+		],
+		goals: 0,
+		compass: [],
 	}
 
 	$scope.printJsonMaze = function(){
@@ -60,19 +62,69 @@ Generator.controller('generatorCtrl',function($scope, $http){
 		$scope.maze.matrix[row][col] = $scope.blockTypeID;
 	}
 
+	/**
+	 * Set open paths on $scope.maze
+	 * return number of open paths
+	 * @returns Number
+	 */
+	function evalOpenPaths() {
+		const x = $scope.maze.compass[0];
+		const y = $scope.maze.compass[1];
+		const potentialPathsCoords = [
+			[x, y+1],
+			[x, y-1],
+			[x+1, y],
+			[x-1, y],
+		];
+		let count = 0;
+		potentialPathsCoords.forEach((coords) => {
+			if (coords[0] >= 0 && coords[0] < $scope.maze.matrix[0].length
+				&& coords[1] >= 0 && coords[1] < $scope.maze.matrix.length) {
+					if ($scope.maze.matrix[coords[0]][coords[1]] === 0) {
+						$scope.maze.matrix[coords[0]][coords[1]] = 5;
+						count++;
+					}
+				}
+		})
+		return count;
+	}
+
 	$scope.save = function(){
-		
+	
 		// @todo
-		// Valdate the maze
-		// ...
+		// Validate the maze
+		// e.g. name
+		if ($scope.maze.name == '') {
+			alert('Please insert a name');
+			return;
+		}
 
 		// Set the default first open paths
-		//... 
+		if (evalOpenPaths() < 1) {
+			alert('Please check the position of your starting point');
+			return;
+		}
 		
 		// Send data to server
-		$http.post('store.php', {maze:$scope.maze}).success(function(response){
-	    	alert(response);
-	    });
+		// $http
+		// 	.post('./legacy-storage/store.php', {maze:$scope.maze})
+		// 	.success(function(response){
+	  //   	alert(response);
+		// 	});
+		
+		console.log($scope.maze)
+
+		// Store data on Firestore
+		db.collection("mazelist").add({
+			...$scope.maze,
+			matrix: JSON.stringify($scope.maze.matrix),
+		})
+		.then(function(docRef) {
+			console.log("Document written with ID: ", docRef.id);
+		})
+		.catch(function(error) {
+			console.error("Error adding document: ", error);
+		});
 
 	}
 
