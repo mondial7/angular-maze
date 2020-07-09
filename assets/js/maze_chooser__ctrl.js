@@ -8,11 +8,25 @@ Maze.controller('mazeChooser',function($scope,$http){
 	];
 
 	// Load mazes
-	$http.get("./mazelist.json").then(function(response) {
-		if (response.data !== null) {
-	        $scope.mazeList = angular.fromJson(response.data);
-    	}
-    });
+	// $http.get("./legacy-storage/mazelist.json").then(function(response) {
+	// 	if (response.data !== null) {
+	// 		$scope.mazeList = angular.fromJson(response.data);
+	// 	}
+	// });
+	db.collection("mazelist").get().then(function(querySnapshot){
+		const mazeList = [];
+		querySnapshot.forEach(function(doc){
+			const maze = {
+				id: parseInt(doc.id),
+				...doc.data(),
+				// parse matrix - stored as string in Firestore
+				matrix: angular.fromJson(doc.data().matrix),
+			};
+			mazeList.push(maze);
+		});
+		$scope.mazeList = mazeList;
+		$scope.$apply();
+	});
 
 	$scope.loadMaze = function(mazeID){
 		// Select the right maze
