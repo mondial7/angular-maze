@@ -129,7 +129,7 @@
     "safer-buffer": "^2.1.2",
     "semver": "^6.3.1",
     "semver-greatest-satisfied-range": "^2.0.0",
-    "source-map": "^0.5.7",
+    "source-map": "^0.7.0",
     "sparkles": "^2.1.0",
     "stream-composer": "^1.0.2",
     "stream-exhaust": "^1.0.2",
