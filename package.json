@@ -1,7 +1,9 @@
 {
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "gulp": "^5.0.0",
-    "gulp-sass": "^6.0.1"
+    "gulp-sass": "^6.0.1",
+    "sass": "^1.89.0"
   },
   "name": "mze-way-out",
   "version": "1.0.0",
@@ -132,8 +134,8 @@
     "stream-composer": "^1.0.2",
     "stream-exhaust": "^1.0.2",
     "streamx": "^2.22.0",
-    "string-width": "^4.2.3",
     "string_decoder": "^1.3.0",
+    "string-width": "^4.2.3",
     "strip-ansi": "^6.0.1",
     "supports-color": "^7.2.0",
     "supports-preserve-symlinks-flag": "^1.0.0",
@@ -161,6 +163,7 @@
     "yargs-parser": "^20.2.9"
   },
   "scripts": {
+    "dev": "concurrently \"serve -l 3000\" \"gulp happy\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marco Mondini",

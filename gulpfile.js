@@ -1,22 +1,22 @@
 'use strict';
  
-var gulp = require('gulp');
-var sass = require('gulp-sass');
+const gulp = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
 
-gulp.task('sass', function () {
-
+// Sass compilation task
+function compileSass() {
 	return gulp.src('./assets/scss/*.scss')
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(gulp.dest('./assets/css/'));
+}
 
-});
- 
-gulp.task('sass:watch', ['sass'], function () {
+// Watch task
+function watchSass() {
+	return gulp.watch('./assets/scss/*.scss', compileSass);
+}
 
-	gulp.watch('./assets/scss/*.scss', ['sass']);
-
-});
-
-gulp.task('happy', ['sass:watch'], function() {
-	// We are calling other watch tasks using dependencies
-});
+// Export tasks
+exports.sass = compileSass;
+exports.watch = gulp.series(compileSass, watchSass);
+exports.happy = gulp.series(compileSass, watchSass);
+exports.default = exports.happy;
