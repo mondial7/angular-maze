@@ -40,6 +40,12 @@ $breakpoint-large: 992px;
 /* Import notification styles */
 @import 'notifications';
 
+/* Import size toggle styles */
+@import 'size-toggle';
+
+/* Import editor styles */
+@import 'editor';
+
 *, body {
 	box-sizing: border-box;
 	transition: 400ms all;
@@ -494,6 +500,7 @@ input[type=button]:hover {
 }
 
 .maze_board__content--editor {
+	margin: 10px !important;
 	border: 2px dashed rgba($color-dark, 0.3);
 	background-color: rgba($color-light, 0.9);
 	cursor: crosshair;
@@ -569,6 +576,13 @@ input[type=button]:hover {
 }
 
 /* Maze generator */
+
+.maze-editor__content {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
 
 input[type=text] {
 	border: none;

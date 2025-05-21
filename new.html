@@ -74,54 +74,55 @@
 		</aside>
 
 		<main>
-
-
-
-		<div id="maze_board">
-
-			<div class="edit_line">
-				<span ng-click="addLine(1)" class="edit_line__plus"></span>
-				<span ng-click="removeLine(1)" class="edit_line__less"></span>
-			</div>
-
-			<div class="maze_board__central_box">
-
-				<div class="edit_line">
-					<span ng-click="addLine(4)" class="edit_line__plus"></span>
-					<span ng-click="removeLine(4)" class="edit_line__less"></span>
+			<div id="maze_board" class="maze_board__central_box">
+				<button class="size-toggle" onclick="toggleMazeSize()">Toggle Size 2x</button>
+				<div class="editor-controls">
+					<h3>{{ maze.name }} <span class="maze-dimensions">( {{ maze.matrix.length }}x{{ maze.matrix[0].length }} )</span></h3>
 				</div>
+				
+				<div class="maze-editor-container">
+					<div class="edit-controls-group">
+						<div class="edit_line">
+							<span ng-click="addLine(1)" class="edit_line__plus" title="Add Row Above"></span>
+							<span ng-click="removeLine(1)" class="edit_line__less" title="Remove Row Above"></span>
+						</div>
+					</div>
 
+					<div class="maze-editor__content">
+						<div class="edit_line left-controls">
+							<span ng-click="addLine(4)" class="edit_line__plus" title="Add Column Left"></span>
+							<span ng-click="removeLine(4)" class="edit_line__less" title="Remove Column Left"></span>
+						</div>
 
-				<div class="maze_board__content maze_board__content--editor" ng-mousedown="drawMode(true)" ng-mouseup="drawMode(false)">
-					<div class="maze_board__row" ng-repeat="row in maze.matrix track by $index">
-						{{blockRow = $index}}
-						<div ng-repeat="col in row track by $index" class="maze_board__block">
-							{{blockCol = $index}}
-							<div class="path {{ blockNames[maze.matrix[blockRow][blockCol]] }}" ng-mouseover="evalBlockOver(blockRow,blockCol)" ng-click="evalBlock(blockRow,blockCol)"></div>
+						<div class="maze_board__content maze_board__content--editor" ng-mousedown="drawMode(true)" ng-mouseup="drawMode(false)">
+							<div class="maze_board__row" ng-repeat="row in maze.matrix track by $index">
+								{{blockRow = $index}}
+								<div ng-repeat="col in row track by $index" class="maze_board__block">
+									{{blockCol = $index}}
+									<div class="path {{ blockNames[maze.matrix[blockRow][blockCol]] }}" ng-mouseover="evalBlockOver(blockRow,blockCol)" ng-click="evalBlock(blockRow,blockCol)"></div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="edit_line right-controls">
+							<span ng-click="addLine(2)" class="edit_line__plus" title="Add Column Right"></span>
+							<span ng-click="removeLine(2)" class="edit_line__less" title="Remove Column Right"></span>
+						</div>
+					</div>
+			
+					<div class="edit-controls-group">
+						<div class="edit_line">
+							<span ng-click="addLine(3)" class="edit_line__plus" title="Add Row Below"></span>
+							<span ng-click="removeLine(3)" class="edit_line__less" title="Remove Row Below"></span>
 						</div>
 					</div>
 				</div>
-			
-				<div class="edit_line">
-					<span ng-click="addLine(2)" class="edit_line__plus"></span>
-					<span ng-click="removeLine(2)" class="edit_line__less"></span>
+				
+				
+				<div class="maze-json">
+					<button class="toggle-json" onclick="toggleJsonView()">Toggle JSON View</button>
+					<pre class="json-preview" style="display: none;">{{ printJsonMaze() }}</pre>
 				</div>
-			
-			</div>
-
-			<div class="edit_line">
-				<span ng-click="addLine(3)" class="edit_line__plus"></span>
-				<span ng-click="removeLine(3)" class="edit_line__less"></span>
-			</div>
-
-			<h3>{{ maze.name }} ( {{ maze.matrix.length }}x{{ maze.matrix[0].length }} )</h3>
-
-			<!-- temp css class -->
-
-
-			<p>
-				{{ printJsonMaze() }}
-			</p>
 
 		</div>
 
@@ -134,6 +135,7 @@
 
 	<script src="./assets/vendor/angular.min.js"></script>
 	<script src="./assets/js/generator.js"></script>
+	<script src="./assets/js/confetti.js"></script>
 	
 	<script>
 		function toggleSidebar() {
@@ -141,6 +143,43 @@
 			const overlay = document.querySelector('.mobile-overlay');
 			sidebar.classList.toggle('active');
 			overlay.classList.toggle('active');
+		}
+		
+		function toggleMazeSize() {
+			const mazeBoard = document.getElementById('maze_board');
+			const button = document.querySelector('.size-toggle');
+			
+			// Toggle the enlarged class
+			if (mazeBoard.classList.contains('maze-enlarged')) {
+				mazeBoard.classList.remove('maze-enlarged');
+				button.textContent = 'Toggle Size 2x';
+				
+				// Show toast notification
+				if (typeof MazeToast !== 'undefined') {
+					MazeToast.show('Size Changed', 'Editor size set to normal', 'info');
+				}
+			} else {
+				mazeBoard.classList.add('maze-enlarged');
+				button.textContent = 'Normal Size';
+				
+				// Show toast notification
+				if (typeof MazeToast !== 'undefined') {
+					MazeToast.show('Size Changed', 'Editor size enlarged 2x', 'info');
+				}
+			}
+		}
+		
+		function toggleJsonView() {
+			const jsonPreview = document.querySelector('.json-preview');
+			const button = document.querySelector('.toggle-json');
+			
+			if (jsonPreview.style.display === 'none') {
+				jsonPreview.style.display = 'block';
+				button.textContent = 'Hide JSON';
+			} else {
+				jsonPreview.style.display = 'none';
+				button.textContent = 'Toggle JSON View';
+			}
 		}
 	</script>
 

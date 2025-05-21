@@ -1,0 +1,46 @@
+/* 
+ * Size toggle button styles
+ */
+.size-toggle {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 5;
+  background-color: $color-light;
+  color: $color-primary;
+  border: 2px solid $color-primary;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'CaviarDreams','Arial',sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background-color: rgba($color-primary, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  @media (min-width: $breakpoint-medium) {
+    display: block;
+  }
+}
+
+/* Enlarged maze styles */
+.maze-enlarged {
+  .maze_board__block {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .maze_board__central_box {
+    max-width: 100%;
+  }
+}

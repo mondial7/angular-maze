@@ -65,6 +65,7 @@
 
 		<main>
 			<section id="maze_board" class="maze_board__central_box" ng-controller="mazeBoard">
+				<button class="size-toggle" onclick="toggleMazeSize()">Toggle Size 2x</button>
 
 			<br>
 
@@ -115,6 +116,30 @@
 			overlay.classList.toggle('active');
 		}
 		
+		function toggleMazeSize() {
+			const mazeBoard = document.getElementById('maze_board');
+			const button = document.querySelector('.size-toggle');
+			
+			// Toggle the enlarged class
+			if (mazeBoard.classList.contains('maze-enlarged')) {
+				mazeBoard.classList.remove('maze-enlarged');
+				button.textContent = 'Toggle Size 2x';
+				
+				// Show toast notification
+				if (typeof MazeToast !== 'undefined') {
+					MazeToast.show('Size Changed', 'Maze size set to normal', 'info');
+				}
+			} else {
+				mazeBoard.classList.add('maze-enlarged');
+				button.textContent = 'Normal Size';
+				
+				// Show toast notification
+				if (typeof MazeToast !== 'undefined') {
+					MazeToast.show('Size Changed', 'Maze size enlarged 2x', 'info');
+				}
+			}
+		}
+		
 		function showSuccessOverlay() {
 			const overlay = document.querySelector('.maze-success-overlay');
 			overlay.classList.add('show');
@@ -133,9 +158,12 @@
 			if (loadNext) {
 				// Get angular scope to load next maze
 				const scope = angular.element(document.querySelector('[ng-controller="mazeChooser"]')).scope();
-				scope.$apply(function() {
-					scope.loadNextMaze();
-				});
+				// Use timeout to ensure the UI has updated before loading next maze
+				setTimeout(function() {
+					scope.$apply(function() {
+						scope.loadNextMaze();
+					});
+				}, 300);
 			}
 		}
 		

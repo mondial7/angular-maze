@@ -1,0 +1,138 @@
+/* 
+ * Maze Editor styles
+ */
+
+.maze-editor-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+  position: relative;
+  
+  @media (max-width: ($breakpoint-small - 1)) {
+    flex-direction: column;
+  }
+}
+
+.editor-controls {
+  margin-bottom: 20px;
+  text-align: center;
+  
+  h3 {
+    margin-bottom: 15px;
+    
+    .maze-dimensions {
+      font-size: 0.8em;
+      opacity: 0.8;
+    }
+  }
+}
+
+.edit-controls-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.left-controls, 
+.right-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 10px;
+  
+  @media (max-width: ($breakpoint-small - 1)) {
+    flex-direction: row;
+    margin: 10px 0;
+  }
+}
+
+/* JSON Preview */
+.maze-json {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.toggle-json {
+  background-color: $color-light;
+  color: $color-primary;
+  border: 1px solid $color-primary;
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-family: 'CaviarDreams','Arial',sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba($color-primary, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.json-preview {
+  margin: 15px auto;
+  padding: 15px;
+  background-color: rgba($color-dark, 0.05);
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 12px;
+  text-align: left;
+  overflow-x: auto;
+  max-width: 100%;
+  white-space: pre-wrap;
+  
+  @media (max-width: ($breakpoint-small - 1)) {
+    font-size: 10px;
+  }
+}
+
+/* Block type selection */
+.maze_blocktype {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  
+  input[type=button] {
+    margin: 5px 0;
+    text-transform: capitalize;
+    
+    &.active {
+      background-color: $color-primary;
+      color: $color-light;
+      font-weight: bold;
+    }
+  }
+  
+  @media (max-width: ($breakpoint-medium - 1)) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    input[type=button] {
+      width: auto;
+      min-width: 80px;
+      margin: 5px;
+    }
+  }
+}
+
+/* Enlarged editor styles */
+.maze-enlarged {
+  .maze_board__content--editor {
+    .maze_board__block {
+      width: 40px;
+      height: 40px;
+      
+      @media (max-width: ($breakpoint-small - 1)) {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
