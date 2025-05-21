@@ -8,7 +8,7 @@
   "description": "[Play it](https://angularmaze.netlify.app/)",
   "main": "index.html",
   "dependencies": {
-    "ansi-colors": "^1.1.0",
+    "ansi-colors": "^4.0.0",
     "ansi-regex": "^5.0.1",
     "ansi-styles": "^4.3.0",
     "ansi-wrap": "^0.1.0",
