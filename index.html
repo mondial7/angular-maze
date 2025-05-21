@@ -34,23 +34,37 @@
 		</script>
 
 </head>
-<body>
+<body ng-app="maze" ng-controller="mazeCtrl">
+	<button class="mobile-nav-toggle" onclick="toggleSidebar()">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<line x1="3" y1="12" x2="21" y2="12"></line>
+			<line x1="3" y1="6" x2="21" y2="6"></line>
+			<line x1="3" y1="18" x2="21" y2="18"></line>
+		</svg>
+	</button>
+	
+	<div class="mobile-overlay" onclick="toggleSidebar()"></div>
 
-	<header>
-		<a href=""><img src="assets/logo.png" alt="Maze" /></a>
-	</header>
-
-	<main ng-app="maze" ng-controller="mazeCtrl">
-
-		<section id="maze_list" ng-controller="mazeChooser">
-		
-			<div class="maze_list-box">
-				<input ng-repeat="m in mazeList" ng-class="isActive(m.id)" ng-click="loadMaze(m.id);" onclick="this.className+='selected'" type="button" value="{{ m.name }}" />
+	<div class="app-container">
+		<aside class="sidebar">
+			<div class="sidebar-logo">
+				<a href=""><img src="assets/mze-logo.jpg" alt="Maze" /></a>
 			</div>
-		
-		</section>
+			
+			<div class="sidebar-menu" ng-controller="mazeChooser">
+				<h3>Select a Maze</h3>
+				<div class="maze_list-box">
+					<input ng-repeat="m in mazeList" ng-class="isActive(m.id)" ng-click="loadMaze(m.id);" onclick="this.className+='selected'" type="button" value="{{ m.name }}" />
+				</div>
+			</div>
+			
+			<div class="sidebar-footer">
+				<a href="./new.html" class="create-maze-btn">Create New Maze</a>
+			</div>
+		</aside>
 
-		<section id="maze_board" class="maze_board__central_box" ng-controller="mazeBoard">
+		<main>
+			<section id="maze_board" class="maze_board__central_box" ng-controller="mazeBoard">
 
 			<br>
 
@@ -66,9 +80,9 @@
 
 			<h3>{{ maze.name }}</h3>
 
-		</section>
-
-	</main>
+			</section>
+		</main>
+	</div>
 
 	<footer>
 		<p>Developed by <a href="http://mondspace.com" target="_blank">Marco</a> | <a href="./new.html">Draw your own maze</a></p>
@@ -79,6 +93,15 @@
 	<script src="./assets/js/maze__ctrl.js"></script>
 	<script src="./assets/js/maze_chooser__ctrl.js"></script>
 	<script src="./assets/js/maze_board__ctrl.js"></script>
+	
+	<script>
+		function toggleSidebar() {
+			const sidebar = document.querySelector('.sidebar');
+			const overlay = document.querySelector('.mobile-overlay');
+			sidebar.classList.toggle('active');
+			overlay.classList.toggle('active');
+		}
+	</script>
 
 </body>
 </html>

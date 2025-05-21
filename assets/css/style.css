@@ -1,113 +1,488 @@
 /*
 
-PALETTE
-31B744
-383333
-FEFEFE
-08415C
-FB3640
+MODERN PALETTE
+#123361 - Primary Blue
+#3A0CA3 - Deep Purple
+#7209B7 - Vibrant Purple
+#F72585 - Hot Pink
+#4CC9F0 - Light Blue
+#212529 - Dark (Text/Background)
+#F8F9FA - Light (Text/Background)
+#E9ECEF - Light Gray Background
 
 */
 @font-face {
   font-family: "CaviarDreams";
   src: url("../font/CaviarDreams.ttf");
 }
+/* Variables for BEM structure */
+/* Hot Pink */
+/* Light Blue */
+/* Dark Gray - Text */
+/* Off-White */
+/* Light Gray Background */
+/* Vibrant Purple */
+/* Light Blue */
+/* Dark Gray */
+/* Transparent Primary */
+/* Hot Pink */
+/* Primary Blue */
+/* Breakpoints for responsive design */
 *, body {
-  height: 100%;
+  box-sizing: border-box;
   transition: 400ms all;
   -webkit-transition: 400ms all;
 }
 
-body {
-  font-family: "CaviarDreams", "Arial", sans-serif;
-  background-color: #FEFEFE;
-  color: #383333;
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  text-align: center;
+}
+
+body {
+  font-family: "CaviarDreams", "Arial", sans-serif;
+  background-color: #123361;
+  color: #383333;
 }
 
 a {
-  color: #08415C;
-}
-
-header, main, footer {
-  position: relative;
-  margin: auto;
-}
-
-header {
-  height: 300px;
-}
-
-header a {
+  color: #123361;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #F72585;
 }
 
 h3 {
   font-weight: 400;
+  margin: 15px 0;
+  color: #212529;
+  position: relative;
+  display: inline-block;
+}
+h3::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background-color: #123361;
+  border-radius: 2px;
 }
 
-main {
-  min-height: calc(100% - 370px);
-  height: auto;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 30px); /* Subtract footer height */
+  position: relative;
+}
+@media (min-width: 768px) {
+  .app-container {
+    flex-direction: row;
+  }
+}
+
+/* Sidebar Styles */
+/* Mobile Navigation Toggle */
+.mobile-nav-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background-color: #F72585;
+  color: #F8F9FA;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.mobile-nav-toggle:hover {
+  background-color: rgb(246.0973451327, 12.4026548673, 119.2345132743);
+}
+@media (min-width: 768px) {
+  .mobile-nav-toggle {
+    display: none;
+  }
+}
+
+.sidebar {
+  width: 100%;
+  background-color: #3f6eac;
+  color: #F8F9FA;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
   overflow: hidden;
-  padding: 20px 0px;
-  max-width: 1220px;
-  background-color: #FB3640;
+}
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+}
+.sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(114, 9, 183, 0.4) 0%, transparent 70%);
+  z-index: 0;
+}
+.sidebar > * {
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    width: 250px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.sidebar-logo {
+  padding: 20px 0;
+  text-align: center;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+@media (min-width: 768px) {
+  .sidebar-logo {
+    flex-shrink: 0;
+  }
+}
+
+.sidebar-logo img {
+  max-width: 150px;
+  height: auto;
+}
+@media (min-width: 768px) {
+  .sidebar-logo img {
+    max-width: 180px;
+  }
+}
+
+.sidebar-menu {
+  width: 100%;
+  padding: 10px 20px;
+  text-align: center;
+  overflow-y: auto;
+}
+.sidebar-menu h3 {
+  color: #F8F9FA;
+}
+.sidebar-menu h3::after {
+  background-color: #F72585;
+}
+@media (min-width: 768px) {
+  .sidebar-menu {
+    padding: 10px 20px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100% - 150px); /* Adjust based on logo size */
+    scrollbar-width: thin;
+  }
+  .sidebar-menu::-webkit-scrollbar {
+    width: 6px;
+  }
+  .sidebar-menu::-webkit-scrollbar-track {
+    background: rgba(248, 249, 250, 0.1);
+    border-radius: 10px;
+  }
+  .sidebar-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(248, 249, 250, 0.3);
+    border-radius: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .sidebar-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .sidebar-menu::-webkit-scrollbar {
+    width: 4px;
+  }
+  .sidebar-menu::-webkit-scrollbar-track {
+    background: rgba(248, 249, 250, 0.1);
+  }
+  .sidebar-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(248, 249, 250, 0.3);
+    border-radius: 10px;
+  }
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  width: 100%;
+  padding: 15px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(248, 249, 250, 0.1);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.create-maze-btn,
+.back-to-game-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #F72585;
+  color: #F8F9FA;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.create-maze-btn:hover,
+.back-to-game-btn:hover {
+  background-color: rgb(246.0973451327, 12.4026548673, 119.2345132743);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.create-maze-btn:active,
+.back-to-game-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Overlay */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(33, 37, 41, 0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.mobile-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+@media (min-width: 768px) {
+  .mobile-overlay {
+    display: none;
+  }
+}
+
+/* Main Content Area */
+main {
+  flex: 1;
+  padding: 15px;
+  background-color: #E9ECEF;
+  overflow: auto;
+  position: relative;
+}
+main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(76, 201, 240, 0.1) 0%, rgba(67, 97, 238, 0.1) 100%);
+  z-index: 0;
+}
+@media (min-width: 768px) {
+  main {
+    padding: 20px;
+  }
+}
+@media (max-width: 767px) {
+  main {
+    padding-top: 60px; /* Space for mobile toggle */
+  }
 }
 
 footer {
   height: 30px;
   line-height: 30px;
-  font-size: 14px;
+  font-size: 12px;
+  text-align: center;
+  background-color: #212529;
+  color: #F8F9FA;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+footer a {
+  color: #4CC9F0;
+}
+footer a:hover {
+  color: #F72585;
+}
+@media (min-width: 768px) {
+  footer {
+    font-size: 14px;
+  }
 }
 
 footer > p {
   margin: 0px auto;
 }
 
+.maze_list-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 767px) {
+  .maze_list-box {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
 input[type=button] {
-  height: 30px;
-  width: 70px;
-  background-color: #FEFEFE;
+  height: 36px;
+  width: 100%;
+  background-color: #F8F9FA;
   border: none;
-  border-bottom: 2px solid #31B744;
+  border-left: 3px solid #123361;
   font-family: "CaviarDreams", "Arial", sans-serif;
-  display: inline-block;
+  display: block;
   cursor: pointer;
-  margin: 4px;
+  margin: 6px 0;
   font-size: 14px;
+  text-align: left;
+  padding-left: 15px;
+  border-radius: 0 4px 4px 0;
+  transition: all 0.3s ease;
+  color: #212529;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+input[type=button]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background-color: rgba(67, 97, 238, 0.1);
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+input[type=button]:hover::after {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  input[type=button] {
+    width: auto;
+    min-width: 100px;
+    margin: 5px;
+    text-align: center;
+    padding: 0 15px;
+    border-left: none;
+    border-bottom: 3px solid #123361;
+    border-radius: 4px 4px 0 0;
+  }
 }
 
 input[type=button].active,
 input[type=button]:hover {
-  background-color: #31B744;
-  color: #FEFEFE;
+  background-color: #123361;
+  color: #F8F9FA;
+  box-shadow: 0 2px 5px rgba(67, 97, 238, 0.3);
+  transform: translateY(-2px);
 }
 
 /* Board */
+.maze_board__central_box {
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: center;
+  overflow-x: auto;
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 45px 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 10px auto;
+  max-width: 90%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 .maze_board__central_box > div {
   vertical-align: middle;
   display: inline-block;
 }
 
 .maze_board__content {
-  margin: 5px;
+  margin: 5px auto;
   font-size: 0;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   overflow: hidden;
+  max-width: 100%;
+  display: inline-block;
 }
 
 .maze_board__content--editor {
-  border: 1px dotted #383333;
+  border: 2px dashed rgba(33, 37, 41, 0.3);
+  background-color: rgba(248, 249, 250, 0.9);
+  cursor: crosshair;
+  transition: all 0.3s ease;
+}
+.maze_board__content--editor:hover {
+  border-color: rgba(18, 51, 97, 0.6);
+}
+
+.maze_board__row {
+  display: block;
 }
 
 .maze_board__block {
   display: inline-block;
   width: 20px;
   height: 20px;
+}
+@media (max-width: 575px) {
+  .maze_board__block {
+    width: 16px;
+    height: 16px;
+  }
+}
+@media (min-width: 992px) {
+  .maze_board__block {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .maze_board__block > div {
@@ -116,43 +491,61 @@ input[type=button]:hover {
 }
 
 .maze_board__block > .OPEN_PATH {
-  background-color: rgba(255, 255, 167, 0.75);
+  background-color: rgba(67, 97, 238, 0.3);
   border-radius: 50%;
   -webkit-border-radius: 50%;
 }
 
 .maze_board__block > .WALL {
-  background-color: #383333;
+  background-color: #212529;
 }
 
 .maze_board__block > .GOAL,
 .maze_board__block > .OPEN_GOAL {
   border-radius: 50%;
   -webkit-border-radius: 50%;
-  background-color: #FB3640;
+  background-color: #F72585;
+  box-shadow: 0 0 10px rgba(247, 37, 133, 0.5);
 }
 
 .maze_board__block > .START {
   border-radius: 50%;
   -webkit-border-radius: 50%;
-  background-color: #31B744;
+  background-color: #123361;
+  box-shadow: 0 0 10px rgba(67, 97, 238, 0.5);
 }
 
 .maze_board__block > .FINISH,
 .maze_board__block > .OPEN_FINISH {
-  background-color: #FB3640;
+  background-color: #F72585;
+  box-shadow: 0 0 10px rgba(247, 37, 133, 0.5);
 }
 
 /* Maze generator */
 input[type=text] {
   border: none;
-  background-color: #e9e9e9;
-  color: #333;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #212529;
   line-height: 20px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  width: 100%;
+  margin: 8px 0;
+  font-family: "CaviarDreams", "Arial", sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+input[type=text]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(18, 51, 97, 0.3);
 }
 
 .edit_line {
   font-size: 13px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .edit_line > span {
@@ -161,17 +554,21 @@ input[type=text] {
   margin: 2px;
   display: inline-block;
   cursor: pointer;
-  border: 1px solid #fff;
+  border: 1px solid #F8F9FA;
   background-position: center center;
-  background-size: 30px;
+  background-size: 20px;
   background-repeat: no-repeat;
-  opacity: 0.7;
+  opacity: 0.8;
   border-radius: 50%;
   -webkit-border-radius: 50%;
+  background-color: rgba(248, 249, 250, 0.2);
+  transition: all 0.3s ease;
 }
 
 .edit_line > span:hover {
-  background-color: #31B744;
+  background-color: #123361;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .maze_board__central_box > .edit_line > span {
@@ -188,5 +585,13 @@ input[type=text] {
 
 .maze_settings,
 .maze_blocktype {
-  padding: 20px 0px;
+  padding: 10px 0;
+  width: 100%;
+}
+.maze_settings label,
+.maze_blocktype label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #F8F9FA;
 }
