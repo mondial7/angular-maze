@@ -73,6 +73,12 @@ h3::after {
   background-color: #123361;
   border-radius: 2px;
 }
+@media (max-width: 575px) {
+  h3 {
+    font-size: 1.3em;
+    margin: 10px 0;
+  }
+}
 
 .app-container {
   display: flex;
@@ -264,7 +270,6 @@ h3::after {
 }
 .create-maze-btn:hover,
 .back-to-game-btn:hover {
-  background-color: rgb(246.0973451327, 12.4026548673, 119.2345132743);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -323,6 +328,8 @@ main::before {
 @media (max-width: 767px) {
   main {
     padding-top: 60px; /* Space for mobile toggle */
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
 
@@ -431,16 +438,26 @@ input[type=button]:hover {
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
-  padding: 45px 30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin: 10px auto;
   max-width: 90%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+@media (max-width: 767px) {
+  .maze_board__central_box {
+    padding: 10px;
+    max-width: 100%;
+  }
+}
 
 .maze_board__central_box > div {
   vertical-align: middle;
   display: inline-block;
+}
+@media (max-width: 575px) {
+  .maze_board__central_box > div {
+    width: 100%;
+  }
 }
 
 .maze_board__content {
@@ -452,6 +469,13 @@ input[type=button]:hover {
   max-width: 100%;
   display: inline-block;
 }
+@media (max-width: 575px) {
+  .maze_board__content {
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 8px;
+  }
+}
 
 .maze_board__content--editor {
   border: 2px dashed rgba(33, 37, 41, 0.3);
@@ -461,6 +485,11 @@ input[type=button]:hover {
 }
 .maze_board__content--editor:hover {
   border-color: rgba(18, 51, 97, 0.6);
+}
+@media (max-width: 575px) {
+  .maze_board__content--editor {
+    border-width: 3px;
+  }
 }
 
 .maze_board__row {
@@ -474,8 +503,8 @@ input[type=button]:hover {
 }
 @media (max-width: 575px) {
   .maze_board__block {
-    width: 16px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
   }
 }
 @media (min-width: 992px) {
@@ -494,6 +523,11 @@ input[type=button]:hover {
   background-color: rgba(67, 97, 238, 0.3);
   border-radius: 50%;
   -webkit-border-radius: 50%;
+}
+@media (max-width: 575px) {
+  .maze_board__block > .OPEN_PATH {
+    box-shadow: 0 0 5px rgba(18, 51, 97, 0.3);
+  }
 }
 
 .maze_board__block > .WALL {
@@ -563,6 +597,13 @@ input[type=text]:focus {
   -webkit-border-radius: 50%;
   background-color: rgba(248, 249, 250, 0.2);
   transition: all 0.3s ease;
+}
+@media (max-width: 575px) {
+  .edit_line > span {
+    width: 40px;
+    height: 40px;
+    background-size: 24px;
+  }
 }
 
 .edit_line > span:hover {
