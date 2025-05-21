@@ -162,6 +162,9 @@
     "yargs": "^16.2.0",
     "yargs-parser": "^20.2.9"
   },
+  "optionalDependencies": {
+    "fsevents": "2.3.3"
+  },
   "scripts": {
     "dev": "concurrently \"serve -l 3000\" \"gulp happy\"",
     "test": "echo \"Error: no test specified\" && exit 1"
