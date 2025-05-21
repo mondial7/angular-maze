@@ -1,6 +1,6 @@
 Maze.controller('mazeCtrl',function($scope){
 
-	var welcome_message = "Select one maze and play it hard!";
+	var welcome_message = "Select one maze!";
 
 	$scope.maze = {
 		id:0,

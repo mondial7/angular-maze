@@ -87,12 +87,25 @@
 	<footer>
 		<p>Developed by <a href="http://mondspace.com" target="_blank">Marco</a> | <a href="./new.html">Draw your own maze</a></p>
 	</footer>
+	
+	<!-- Success Overlay -->
+	<div class="maze-success-overlay">
+		<div class="maze-success-message">
+			<h2>Congratulations!</h2>
+			<p>You've successfully completed the maze!</p>
+			<div class="maze-success-buttons">
+				<button class="maze-button primary" onclick="closeSuccessOverlay(true)">Next Maze</button>
+				<button class="maze-button secondary" onclick="closeSuccessOverlay(false)">Close</button>
+			</div>
+		</div>
+	</div>
 
 	<script src="./assets/vendor/angular.min.js"></script>
 	<script src="./assets/js/app.js"></script>
 	<script src="./assets/js/maze__ctrl.js"></script>
 	<script src="./assets/js/maze_chooser__ctrl.js"></script>
 	<script src="./assets/js/maze_board__ctrl.js"></script>
+	<script src="./assets/js/confetti.js"></script>
 	
 	<script>
 		function toggleSidebar() {
@@ -101,6 +114,33 @@
 			sidebar.classList.toggle('active');
 			overlay.classList.toggle('active');
 		}
+		
+		function showSuccessOverlay() {
+			const overlay = document.querySelector('.maze-success-overlay');
+			overlay.classList.add('show');
+			
+			// Start confetti animation
+			MazeConfetti.start();
+			
+			// Show toast notification
+			MazeToast.show('Success!', 'You have completed the maze!', 'success');
+		}
+		
+		function closeSuccessOverlay(loadNext) {
+			const overlay = document.querySelector('.maze-success-overlay');
+			overlay.classList.remove('show');
+			
+			if (loadNext) {
+				// Get angular scope to load next maze
+				const scope = angular.element(document.querySelector('[ng-controller="mazeChooser"]')).scope();
+				scope.$apply(function() {
+					scope.loadNextMaze();
+				});
+			}
+		}
+		
+		// Expose function to be called from Angular
+		window.showMazeSuccess = showSuccessOverlay;
 	</script>
 
 </body>

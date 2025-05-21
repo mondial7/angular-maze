@@ -47,5 +47,32 @@ Maze.controller('mazeChooser',function($scope,$http){
 	$scope.isActive = function(mazeID){
 		return mazeID === $scope.maze.id ? 'active' : '';
 	}
+	
+	// Function to load the next maze in the list
+	$scope.loadNextMaze = function() {
+		if (!$scope.maze || !$scope.maze.id || !$scope.mazeList || $scope.mazeList.length === 0) {
+			return;
+		}
+		
+		// Find current maze index
+		let currentIndex = -1;
+		for (let i = 0; i < $scope.mazeList.length; i++) {
+			if ($scope.mazeList[i].id == $scope.maze.id) {
+				currentIndex = i;
+				break;
+			}
+		}
+		
+		// If found, load the next maze or loop back to the first one
+		if (currentIndex !== -1) {
+			const nextIndex = (currentIndex + 1) % $scope.mazeList.length;
+			$scope.loadMaze($scope.mazeList[nextIndex].id);
+			
+			// Show a toast notification about the new maze
+			if (typeof MazeToast !== 'undefined') {
+				MazeToast.show('New Challenge', 'Loading ' + $scope.mazeList[nextIndex].name, 'info');
+			}
+		}
+	}
 
 });

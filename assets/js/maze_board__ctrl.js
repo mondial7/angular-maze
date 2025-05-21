@@ -87,7 +87,13 @@ Maze.controller('mazeBoard',function($scope){
 
 		// Check if all goals where achieved
 		if($scope.maze.goals == 0){
-			alert("Congrats! You did it!");
+			// Show success celebration instead of alert
+			if (window.showMazeSuccess) {
+				window.showMazeSuccess();
+			} else {
+				// Fallback if function not available
+				alert("Congrats! You did it!");
+			}
 		} else {
 			lost(1);
 		}
@@ -98,10 +104,19 @@ Maze.controller('mazeBoard',function($scope){
 	}
 
 	function lost(message_type){
-		if(message_type == 1){
-			alert("You lost, goals left: "+$scope.maze.goals);
+		if (typeof MazeToast !== 'undefined') {
+			if(message_type == 1){
+				MazeToast.show('Oops!', 'You lost, goals left: ' + $scope.maze.goals, 'error');
+			} else {
+				MazeToast.show('Oops!', 'You lost, you have never reached the finish', 'error');
+			}
 		} else {
-			alert("You lost, you have never reached the finish");
+			// Fallback to alert if MazeToast not available
+			if(message_type == 1){
+				alert("You lost, goals left: "+$scope.maze.goals);
+			} else {
+				alert("You lost, you have never reached the finish");
+			}
 		}
 	}
 

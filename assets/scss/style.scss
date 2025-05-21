@@ -12,11 +12,6 @@ MODERN PALETTE
 
 */
 
-@font-face {
-	font-family: 'CaviarDreams';
-    src: url('../font/CaviarDreams.ttf');
-}
-
 /* Variables for BEM structure */
 $color-primary: #123361;
 $color-secondary: #F72585; /* Hot Pink */
@@ -36,6 +31,14 @@ $color-start: #123361; /* Primary Blue */
 $breakpoint-small: 576px;
 $breakpoint-medium: 768px;
 $breakpoint-large: 992px;
+
+@font-face {
+	font-family: 'CaviarDreams';
+    src: url('../font/CaviarDreams.ttf');
+}
+
+/* Import notification styles */
+@import 'notifications';
 
 *, body {
 	box-sizing: border-box;
