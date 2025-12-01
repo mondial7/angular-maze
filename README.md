@@ -1,6 +1,6 @@
 # Maze
 
-[Play it](https://angularmaze.netlify.app/)
+[Play it](https://mze.netlify.app/)
 
 * AngularJS
 * HTML/CSS
